@@ -1,11 +1,13 @@
 #!/bin/bash
 
-if [$1 == "passwd"] then
-    $uid = id -u $2
-    $gid = id -g $2
+if [ "$1" == "passwd" ] 
+then
+    uid=$(id -u $2)
+    gid=$(id -g $2)
     echo "$2:x:$uid:$gid:$2,,,:/data/data/com.termux/files/usr/home/$2:/bin/bash"
-elif [$1 == "group"] then
-    $gid = id -g $2
-    $user = id -nu
+elif [ "$1" == "group" ] 
+then
+    gid=$(id -g $2)
+    user=$(id -nu)
     echo "$2:x:$gid:$user,root"
 fi
