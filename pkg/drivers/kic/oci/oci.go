@@ -125,17 +125,8 @@ func HasMemoryCgroup() bool {
 
 func hasMemorySwapCgroup() bool {
 	memcgSwap := true
-	if runtime.GOOS == "linux" {
-		var memoryswap string
-		if cgroup2, err := IsCgroup2UnifiedMode(); err == nil && cgroup2 {
-			memoryswap = "/sys/fs/cgroup/memory/memory.swap.max"
-		}
-		if _, err := os.Stat(memoryswap); os.IsNotExist(err) {
-			// requires CONFIG_MEMCG_SWAP_ENABLED or cgroup_enable=memory in grub
-			klog.Warning("Your kernel does not support swap limit capabilities or the cgroup is not mounted.")
-			memcgSwap = false
-		}
-	}
+	klog.Warning("Your kernel does not support swap limit capabilities or the cgroup is not mounted.")
+	memcgSwap = false
 	return memcgSwap
 }
 
