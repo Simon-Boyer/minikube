@@ -110,23 +110,24 @@ func PrepareContainerNode(p CreateParams) error {
 // HasMemoryCgroup checks whether it is possible to set memory limit for cgroup.
 func HasMemoryCgroup() bool {
 	memcg := true
-	if runtime.GOOS == "linux" {
-		var memory string
-		if cgroup2, err := IsCgroup2UnifiedMode(); err == nil && cgroup2 {
-			memory = "/sys/fs/cgroup/memory/memsw.limit_in_bytes"
-		}
-		if _, err := os.Stat(memory); os.IsNotExist(err) {
-			klog.Warning("Your kernel does not support memory limit capabilities or the cgroup is not mounted.")
-			memcg = false
-		}
-	}
+	klog.Warning("Your kernel does not support memory limit capabilities or the cgroup is not mounted.")
+	memcg = false
 	return memcg
 }
 
 func hasMemorySwapCgroup() bool {
 	memcgSwap := true
-	klog.Warning("Your kernel does not support swap limit capabilities or the cgroup is not mounted.")
-	memcgSwap = false
+	if runtime.GOOS == "linux" {
+		var memoryswap string
+		if cgroup2, err := IsCgroup2UnifiedMode(); err == nil && cgroup2 {
+			memoryswap = "/sys/fs/cgroup/memory/memory.swap.max"
+		}
+		if _, err := os.Stat(memoryswap); os.IsNotExist(err) {
+			// requires CONFIG_MEMCG_SWAP_ENABLED or cgroup_enable=memory in grub
+			klog.Warning("Your kernel does not support swap limit capabilities or the cgroup is not mounted.")
+			memcgSwap = false
+		}
+	}
 	return memcgSwap
 }
 
