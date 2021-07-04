@@ -145,7 +145,7 @@ spec:
           type: FileOrCreate
       - name: lib-modules
         hostPath:
-          path: /lib/modules
+          path: /vendor/lib/modules
 
 ---
 `))

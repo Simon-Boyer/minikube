@@ -551,7 +551,7 @@ spec:
         name: etc-cni-netd
         # To be able to load kernel modules
       - hostPath:
-          path: /lib/modules
+          path: /vendor/lib/modules
         name: lib-modules
         # To access iptables concurrently with other processes (e.g. kube-proxy)
       - hostPath:

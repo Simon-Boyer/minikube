@@ -167,7 +167,7 @@ func CreateContainerNode(p CreateParams) error {
 		"--tmpfs", "/run", // systemd wants a writable /run
 		// logs,pods be stroed on  filesystem vs inside container,
 		// some k8s things want /lib/modules
-		"-v", "/lib/modules:/lib/modules:ro",
+		"-v", "/vendor/lib/modules:/lib/modules:ro",
 		"--hostname", p.Name, // make hostname match container name
 		"--name", p.Name, // ... and set the container name
 		"--label", fmt.Sprintf("%s=%s", CreatedByLabelKey, "true"),

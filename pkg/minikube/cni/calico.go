@@ -759,7 +759,7 @@ spec:
         # Used by calico-node.
         - name: lib-modules
           hostPath:
-            path: /lib/modules
+            path: /vendor/lib/modules
         - name: var-run-calico
           hostPath:
             path: /var/run/calico

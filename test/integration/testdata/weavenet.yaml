@@ -246,7 +246,7 @@ items:
                 path: /var/lib/dbus
             - name: lib-modules
               hostPath:
-                path: /lib/modules
+                path: /vendor/lib/modules
             - name: xtables-lock
               hostPath:
                 path: /run/xtables.lock
