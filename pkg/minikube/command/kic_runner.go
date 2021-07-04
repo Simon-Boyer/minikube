@@ -262,7 +262,7 @@ func copyToPodman(src string, dest string) error {
 }
 
 func copyToDocker(src string, dest string) error {
-	if out, err := oci.PrefixCmd(exec.Command(oci.Docker, "cp", "-a", src, dest)).CombinedOutput(); err != nil {
+	if out, err := oci.PrefixCmd(exec.Command(oci.Docker, "cp", src, dest)).CombinedOutput(); err != nil {
 		return errors.Wrapf(err, "docker copy %s into %s, output: %s", src, dest, string(out))
 	}
 	return nil
